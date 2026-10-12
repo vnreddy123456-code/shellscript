@@ -1,5 +1,3 @@
-Here is a high-level project document for this repository:
-
 # Shell Scripting Practice
 
 ## Overview
