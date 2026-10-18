@@ -31,4 +31,3 @@ do
     validate $? "Installing ${package}"
 done
 echo "script ending time: $(date +"%F %T")" &>> ${logs_file}
-
