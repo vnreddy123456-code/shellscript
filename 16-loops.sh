@@ -15,11 +15,11 @@ mkdir -p ${logs_folder}
 echo "script starting time: $(date +"%F %T")" | tee -a ${logs_file}
 
 validate() {
-   if [ $1 -eq 0 ]; then
-       echo "${2}...SUCCESS" | tee -a ${logs_file}
-   else
+   if [ $1 -ne 0 ]; then
        echo "${2}...FAILED" | tee -a ${logs_file}
        exit 1
+   else
+       echo "${2}...SUCCESS" | tee -a ${logs_file}
    fi
 
 }   
@@ -32,7 +32,7 @@ do
          dnf install $package -y | tee -a ${logs_file}
          validate $? "Installing ${package}"
     else
-        echo "$package is already installed" | tee -a ${logs_file}echo "$package is already installed...SKIPPING." | tee -a ${logs_file}    
+        echo "$package is already installed...SKIPPING." | tee -a ${logs_file}    
     fi
     
 done
