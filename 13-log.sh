@@ -12,7 +12,7 @@ fi
 
 mkdir -p ${logs_folder}
 
-echo "script starting time: $(date %F %T)" &>> ${logs_file}
+echo "script starting time: $(date +"%F %T")" &>> ${logs_file}
 
 install_package() {
     package_name=$1
@@ -28,5 +28,5 @@ install_package() {
 install_package htop
 install_package mysql
 
-echo "script ending time: $(date %F %T)" &>> ${logs_file}
+echo "script ending time: $(date +"%F %T")" &>> ${logs_file}
 
