@@ -27,13 +27,14 @@ validate() {
 for package in $@
 do
     dnf list installed $package &>> ${logs_file}
-    if [ $? -eq 0 ]; then
-        echo "$package is already installed...SKIPPING." | tee -a ${logs_file}
-        continue
+    if [ $? -ne 0 ]; then
+        echo "Going to install $package" | tee -a ${logs_file}
+         dnf install $package -y | tee -a ${logs_file}
+         validate $? "Installing ${package}"
+    else
+        echo "$package is already installed" | tee -a ${logs_file}echo "$package is already installed...SKIPPING." | tee -a ${logs_file}    
     fi
-    echo "Going to install $package" | tee -a ${logs_file}
-    dnf install $package -y | tee -a ${logs_file}
-    validate $? "Installing ${package}"
+    
 done
 echo "script ending time: $(date +"%F %T")" | tee -a ${logs_file}
 
