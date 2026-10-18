@@ -1,31 +1,32 @@
 #!/bin/bash
+# This script demonstrates the use of logging in Bash.
 
 user_id=$(id -u)
 logs_folder="/var/log/shell-practice"
 logs_file="${logs_folder}/${0}.log"
 
 if [ $user_id -ne 0 ]; then
-    echo "Please run this script with sudo access.."
+    echo "Please run this script as sudo user"
     exit 1
 fi
 
-mkdir -p $logs_folder
+mkdir -p ${logs_folder}
 
-echo "Script started execution at $(date +"%F %T")" &>> $logs_file
+echo "script starting time: $(date %F %T)" &>> ${logs_file}
 
-validate(){
-    if [ $1 -ne 0 ]; then
-        echo "${2}..FAILED" | tee -a $logs_file
-        exit 1
+install_package() {
+    package_name=$1
+    dnf install $package_name -y &>> ${logs_file}
+    if [ $? -eq 0 ]; then
+        echo "$package_name installed successfully" &>> ${logs_file}
     else
-        echo "${2}..SUCCESS" | tee -a $logs_file
+        echo "$package_name installation failed" &>> ${logs_file}
+        exit 1
     fi
 }
 
-dnf install nginx -y &>> $logs_file
-validate $? "Nginx Installation"
+install_package htop
+install_package mysql
 
-dnf install mysql -y &>> $logs_file
-validate $? "Mysql Installation"
+echo "script ending time: $(date %F %T)" &>> ${logs_file}
 
-echo "Script execution completed at $(date +"%F %T")" &>> $logs_file
