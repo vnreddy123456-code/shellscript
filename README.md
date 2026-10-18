@@ -92,9 +92,3 @@ This is not a production application or library. It is a learning repository foc
 
 ## Summary
 This project is a lightweight Bash learning repository that demonstrates essential shell scripting concepts through a series of simple, numbered scripts. It provides a practical entry point for anyone starting with Linux shell programming and command-line automation.
-
-If you want, I can also turn this into:
-- a polished GitHub README
-- a one-page project summary
-- a formal technical design document
-- a student assignment description
