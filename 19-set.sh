@@ -21,15 +21,15 @@ mkdir -p $logs_folder
 
 echo "Script strarted at $(date +"%F %T")" >> $logs_file
 
-for package in $@
-do
-    dnf list installed "${package}" &>> "${logs_file}"
-    if [ $? -ne 0 ]; then
+for package in "$@"; do
+    # Directly query the local RPM database
+    if ! rpm -q "${package}" &>> "$logs_file"; then
         echo "Going to install ${package}..."
-        dnf install -y "${package}" &>> "${logs_file}"
-       # validate_input $? "Installing ${package}"
+        dnf install -y "${package}" &>> "$logs_file"
+        
+        # validate_input $? "Installing ${package}"
     else
-        echo -e "${package} already installed...${Y}SKIPPING.${N}"
+        echo -e "${package} already installed...${Y}SKIPPING${N}"
     fi
 done
 
