@@ -23,10 +23,10 @@ echo "Script strarted at $(date +"%F %T")" >> $logs_file
 
 for package in $@
 do
-    dnf list installed ${package} &>> $logs_file
+    dnf list installed "${package}" &>> "${logs_file}"
     if [ $? -ne 0 ]; then
         echo "Going to install ${package}..."
-        dnf install -y ${package} &>> $logs_file
+        dnf install -y "${package}" &>> "${logs_file}"
        # validate_input $? "Installing ${package}"
     else
         echo -e "${package} already installed...${Y}SKIPPING.${N}"
