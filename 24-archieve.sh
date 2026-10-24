@@ -19,7 +19,7 @@ if [ -z "$source_dir" ] || [ -z "$dest_dir" ];then
     usage
 fi
 
-if [! -d "$source_dir" ]; then
+if [ ! -d "$source_dir" ]; then
     echo -e "${R}ERROR: ${source_dir} not exit${N}"
     exit 1
 fi
