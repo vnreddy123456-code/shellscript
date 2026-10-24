@@ -15,7 +15,7 @@ usage(){
 }
 
 if [ -z "$source_dir" ] || [ -z "$dest_dir" ];then
-    echo ""${R}ERROR..missing parameter${N}
+    echo -e "${R}ERROR..missing parameter${N}"
     usage
 fi
 
@@ -24,15 +24,15 @@ if [! -d "$source_dir" ]; then
     exit 1
 fi
 
-if [! -d "$dest_dir" ]; then
+if [ ! -d "$dest_dir" ]; then
     echo -e "${R}ERROR: ${dest_dir} not exit${N}"
     exit 1
 fi
 
 echo "Scanning files older than $days in $source_dir"
-find_files=$(find $source_dir -name "*.log" -type f -mtime +$days)
+files_to_archive=$(find $source_dir -name "*.log" -type f -mtime +$days)
 
-if [ -z "$files_to_delete" ]; then
+if [ -z "$files_to_archive" ]; then
     echo "No log files found older than $days"
     exit 0
 fi
