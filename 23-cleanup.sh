@@ -14,7 +14,7 @@ usage(){
 }
 
 if [ -z "$source_dir" ];then
-    echo ""${R}ERROR..missing parameter${N}
+    echo -e "${R}ERROR..missing parameter${N}
     usage
 fi
 
